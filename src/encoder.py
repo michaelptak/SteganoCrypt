@@ -2,24 +2,26 @@ import os
 import base64
 from stegano import lsb
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.backends import default_backend
 
-from crypto_utils import pad_data
+from crypto_utils import pad_data, derive_key
 
-def encrypt_message_aes(message: str, key: bytes) -> bytes:
+def encrypt_message_aes(message: str, password: bytes) -> bytes:
     """
     AES-CBC encryption. Encrypt a message in UTF-8 with provided key (must be 16/24/32 bytes)
     Returns: IV + Ciphertext
     """
-    # 1. Pad to block size. AES works in 16-byte blocks, ensure it is extended to a multiple of 16 with PKCS#7 padding
+    # 1. Derive key + salt from user password
+    salt, key = derive_key(password)
+
+    # 2. Pad to block size. AES works in 16-byte blocks, ensure it is extended to a multiple of 16 with PKCS#7 padding
     padded_data = pad_data(message.encode())
 
-    # 2. Randomize the IV and encrypt 
+    # 3. Randomize the IV and encrypt 
     iv = os.urandom(16)
-    cipher = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend())
+    cipher = Cipher(algorithms.AES(key), modes.CBC(iv))
     ct = cipher.encryptor().update(padded_data) + cipher.encryptor().finalize()
 
-    return iv + ct
+    return salt + iv + ct
 
 def embed_message_in_image(image_path: str, output_path: str, encrypted_message: bytes):
     """

@@ -1,10 +1,8 @@
 import base64
-from stegano import lsb
-from cryptography.hazmat.primitives import padding
+from stegano import lsb 
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.backends import default_backend
 
-from crypto_utils import unpad_data
+from crypto_utils import unpad_data, derive_key
 
 def extract_message_from_image(image_path: str) -> bytes:
     """
@@ -16,19 +14,22 @@ def extract_message_from_image(image_path: str) -> bytes:
         raise ValueError("No hidden message found.")
     return base64.b64decode(b64)
 
-def decrypt_message_aes(ciphertext: bytes, key: bytes) -> str:
+def decrypt_message_aes(payload: bytes, password: bytes) -> str:
     """
-    Split off the IV (first 16 bytes), decrypt the rest, unpad, and return UTF-8 string
+    Parse salt+iv+ciphertext, re-derive key, decrypt, unpad, return plaintext.
     """
-    # Prefixed with 16 bit IV before, so slice it out 
-    iv, ct = ciphertext[:16], ciphertext[16:]
-    # Takes the same key + IV + CBC mode to decrypt 
-    cipher = Cipher(algorithms.AES(key), modes.CBC(iv), backend=default_backend())
-    # Feeds raw ciphertext in decryptor, yielding padded message bytes 
+    # 1. Split off salt, IV, and ciphertext
+    salt, iv, ct = payload[:16], payload[16:32], payload[32:]
+
+    # 2. re-derive the same key 
+    _, key = derive_key(password, salt=salt)
+
+    # 3. Decrypt padded data 
+    cipher = Cipher(algorithms.AES(key), modes.CBC(iv))
     padded_data = cipher.decryptor().update(ct) 
     padded_data += cipher.decryptor().finalize()
 
-    # Strip off the padding 
+    # 4. Strip off the padding 
     data = unpad_data(padded_data)
 
     return data.decode()

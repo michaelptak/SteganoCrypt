@@ -28,7 +28,7 @@ def main():
     elif args.command == 'decode':
         extracted_message = extract_message_from_image(args.image)
         
-        print(f"[DEBUG] Extracted ciphertext: {extracted_message}")
+        # print(f"[DEBUG] Extracted ciphertext: {extracted_message}")
 
         try:
             decrypted_message = decrypt_message_aes(extracted_message, args.key.encode())                  
