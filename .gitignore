@@ -6,6 +6,8 @@ __pycache__/
 # Virtual Environments
 venv/
 
-# IDE stuff
-.vscode/
-.idea/
+# ignore common image formats
+*.png
+*.jpg
+*.jpeg
+*.bmp
