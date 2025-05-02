@@ -1,8 +1,8 @@
 # SteganoCrypt 
 
 ## Features
-- AES-CBC encryption (16/24/32-byte keys)
-- LSB steganography on PNGs
+- AES-256 encryption via PBKDF2-SHA256 key derivation (any-length password)
+- Salt (16 bytes) + IV (16 bytes) prepended to ciphertext
 - Basic CLI: `encode` & `decode`
 
 ## Requirements
