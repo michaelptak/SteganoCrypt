@@ -1,6 +1,7 @@
 import argparse
 from encoder import encrypt_message_aes, embed_message_in_image
 from decoder import extract_message_from_image, decrypt_message_aes
+from image_utils import convert_image_to_png
 
 def main(): 
     parser = argparse.ArgumentParser(description="SteganoCrypt - Hide encrypted messages inside images.")
@@ -18,6 +19,11 @@ def main():
     decode_parser.add_argument('--image', required=True, help='Path to stego image (PNG)')
     decode_parser.add_argument('--key', required=True, help='Encryption key used for decryption')
 
+    # Converting image util for convenience if using a lossy format
+    convert_parser = subparsers.add_parser('convert', help='Convert any image to PNG')
+    convert_parser.add_argument('--image', required=True, help='Path to source image')
+    convert_parser.add_argument('--output', required=True, help='Path to output PNG')
+
     args = parser.parse_args()
 
     if args.command == 'encode':
@@ -27,7 +33,6 @@ def main():
 
     elif args.command == 'decode':
         extracted_message = extract_message_from_image(args.image)
-        
         # print(f"[DEBUG] Extracted ciphertext: {extracted_message}")
 
         try:
@@ -36,6 +41,11 @@ def main():
             print(decrypted_message)
         except Exception as e:
             print("[-] Decryption failed: Incorrect key or corrupted image.")
+
+    elif args.command == 'convert':
+        convert_image_to_png(args.image, args.output)
+        print(f"[+] Converted {args.image} → {args.output} (PNG)")
+        return
 
     else:
         parser.print_help()
