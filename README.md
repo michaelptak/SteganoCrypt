@@ -22,6 +22,7 @@ source venv/bin/activate
 pip install -e .
 ```
 ## Usage
+```bash
 # Encode a message into an image
 steganocrypt encode \
   --image in.png \
@@ -38,3 +39,4 @@ steganocrypt decode \
 steganocrypt convert \
   --image photo.jpg \
   --output photo.png
+```
