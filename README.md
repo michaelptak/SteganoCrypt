@@ -42,6 +42,7 @@ steganocrypt convert \
 ```
 
 ## Project Layout
+```css
 SteganoCrypt/
 ├── setup.py
 ├── README.md
@@ -54,3 +55,4 @@ SteganoCrypt/
         ├── decoder.py
         ├── crypto_utils.py
         └── image_utils.py
+```
