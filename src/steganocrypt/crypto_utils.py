@@ -1,3 +1,4 @@
+# crypto_utils.py
 import os
 from cryptography.hazmat.primitives import padding, hashes
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
@@ -19,7 +20,7 @@ def unpad_data(padded_data: bytes) -> bytes:
 
 def derive_key(password: bytes, salt: bytes = None) -> tuple[bytes, bytes]:
     """
-    Derive a 32-byte key from any-length password via PKDF2-SHA256
+    Derive a 32-byte key from any-length password via PBKDF2-SHA256
     Returns (salt, key). If salt is None, generates a fresh 16-byte salt
     """
     salt = salt or os.urandom(16)

@@ -1,6 +1,6 @@
 # SteganoCrypt
 
-**CLI tool for AES-256 encrypted steganography in images**
+A CLI tool for AES-256 encrypted steganography in images, created as the final project for my computer security class.
 
 ## Features
 - AES-256-CBC via PBKDF2-SHA256 key derivation (any-length password)  
@@ -40,3 +40,17 @@ steganocrypt convert \
   --image photo.jpg \
   --output photo.png
 ```
+
+## Project Layout
+SteganoCrypt/
+├── setup.py
+├── README.md
+├── requirements.txt
+└── src/
+    └── steganocrypt/
+        ├── __init__.py
+        ├── main.py
+        ├── encoder.py
+        ├── decoder.py
+        ├── crypto_utils.py
+        └── image_utils.py

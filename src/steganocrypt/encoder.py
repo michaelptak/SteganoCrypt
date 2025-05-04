@@ -1,3 +1,4 @@
+# encoder.py
 import os
 import base64
 from stegano import lsb

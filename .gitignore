@@ -1,10 +1,16 @@
 # Python
 __pycache__/
-*.pyc
-*.pyo
+*.py[cod]
+*$py.class
+
 
 # Virtual Environments
 venv/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
 
 # ignore common image formats
 *.png

@@ -1,3 +1,4 @@
+# image_utils.py
 from PIL import Image
 
 def convert_image_to_png(input_path: str, output_path: str):

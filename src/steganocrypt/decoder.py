@@ -1,3 +1,4 @@
+# decoder.py
 import base64
 from stegano import lsb 
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
