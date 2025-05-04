@@ -1,31 +1,40 @@
-# SteganoCrypt 
+# SteganoCrypt
+
+**CLI tool for AES-256 encrypted steganography in images**
 
 ## Features
-- AES-256 encryption via PBKDF2-SHA256 key derivation (any-length password)
-- Salt (16 bytes) + IV (16 bytes) prepended to ciphertext
-- Basic CLI: `encode` & `decode`
+- AES-256-CBC via PBKDF2-SHA256 key derivation (any-length password)  
+- 16-byte salt + 16-byte IV prepended to ciphertext  
+- LSB steganography on PNGs  
+- Basic commands: `encode`, `decode`, `convert`  
 
 ## Requirements
-- Python 3.x 
-- `venv` (activate before use)
-- `cryptography`, `Pillow`, `stegano`
+- Python 3.x  
+- `venv` (activate before use)  
+- `cryptography`, `Pillow`, `stegano`  
 
-## 🛠️ Quick Start
+## Installation
 ```bash
 git clone https://github.com/michaelptak/SteganoCrypt.git
 cd SteganoCrypt
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip install -e .
 
-# Encode
-python main.py encode \
+## Usage
+# Encode a message into an image
+steganocrypt encode \
   --image in.png \
   --output out.png \
-  --key my16bytepass \
-  --message "secret"
+  --key "your password" \
+  --message "secret stuff"
 
-# Decode
-python main.py decode \
+# Decode a message from an image
+steganocrypt decode \
   --image out.png \
-  --key my16bytepass
+  --key "your password"
+
+# (Optional) Convert any image to PNG
+steganocrypt convert \
+  --image photo.jpg \
+  --output photo.png

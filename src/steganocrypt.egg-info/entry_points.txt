@@ -1,0 +1,2 @@
+[console_scripts]
+steganocrypt = steganocrypt.main:main

@@ -2,7 +2,7 @@ import base64
 from stegano import lsb 
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
-from crypto_utils import unpad_data, derive_key
+from steganocrypt.crypto_utils import unpad_data, derive_key
 
 def extract_message_from_image(image_path: str) -> bytes:
     """

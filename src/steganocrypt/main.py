@@ -1,7 +1,7 @@
 import argparse
-from encoder import encrypt_message_aes, embed_message_in_image
-from decoder import extract_message_from_image, decrypt_message_aes
-from image_utils import convert_image_to_png
+from steganocrypt.encoder import encrypt_message_aes, embed_message_in_image
+from steganocrypt.decoder import extract_message_from_image, decrypt_message_aes
+from steganocrypt.image_utils import convert_image_to_png
 
 def main(): 
     parser = argparse.ArgumentParser(description="SteganoCrypt - Hide encrypted messages inside images.")

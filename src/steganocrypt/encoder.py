@@ -3,7 +3,7 @@ import base64
 from stegano import lsb
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
-from crypto_utils import pad_data, derive_key
+from steganocrypt.crypto_utils import pad_data, derive_key
 
 def encrypt_message_aes(message: str, password: bytes) -> bytes:
     """

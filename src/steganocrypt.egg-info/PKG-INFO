@@ -1,0 +1,11 @@
+Metadata-Version: 2.4
+Name: steganocrypt
+Version: 1.0
+Summary: CLI tool for AES-encrypted steganography in images
+Author: Michael Ptak
+Requires-Dist: cryptography
+Requires-Dist: Pillow
+Requires-Dist: stegano
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: summary
