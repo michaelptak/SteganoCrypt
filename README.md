@@ -20,7 +20,7 @@ cd SteganoCrypt
 python3 -m venv venv
 source venv/bin/activate
 pip install -e .
-
+```
 ## Usage
 # Encode a message into an image
 steganocrypt encode \
